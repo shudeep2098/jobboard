@@ -14,6 +14,5 @@ export const getSingleJob = (id) => API.get(`/jobs/${id}`)
 export const getJobsByType = (type) =>
     API.get(`/jobs/type/${type}`)
 
-// FILTER BY LOCATION
 export const getJobsByLocation = (location) =>
     API.get(`/jobs/location/${location}`)
