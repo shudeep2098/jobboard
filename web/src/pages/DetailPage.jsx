@@ -1,16 +1,13 @@
 import { useEffect, useState } from "react"
 import { useParams, Link } from "react-router-dom"
-
 import Navbar from "../components/Navbar"
 import Loader from "../components/Loader"
 import ErrorMessage from "../components/ErrorMessage"
 import SkillBadge from "../components/SkillBadge"
-
 import { getSingleJob } from "../services/apiService"
 
 function DetailPage() {
     const { id } = useParams()
-
     const [job, setJob] = useState(null)
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState("")
@@ -31,27 +28,32 @@ function DetailPage() {
         }
     }
 
-    if (loading) return <Loader />
+    if (loading) {
+        return <Loader />
+    }
 
-    if (error) return <ErrorMessage message={error} />
+    if (error) {
+        return <ErrorMessage message={error} />
+    }
 
-    if (!job) return <ErrorMessage message="Job not found" />
+    if (!job) {
+        return <ErrorMessage message="Job not found" />
+    }
 
     return (
         <div>
             <Navbar />
-            
+
             <div style={{ padding: "40px 20px", maxWidth: "800px", margin: "0 auto" }}>
-                {/* Back Link */}
+
                 <Link to="/jobs" className="back-link">
-                    &larr; Back to Jobs
+                    Go Back
                 </Link>
 
-                {/* Job Detail Card */}
                 <div className="detail-card">
                     <h1>{job.title}</h1>
                     <h3>{job.company}</h3>
-                    
+
                     <div style={{ marginTop: "20px", borderBottom: "1px solid var(--border-glass)", paddingBottom: "20px" }}>
                         <p><strong>Location:</strong> {job.location}</p>
                         <p><strong>Job Type:</strong> {job.type}</p>

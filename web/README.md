@@ -1,16 +1,133 @@
-# React + Vite
+# JobBoard Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A React frontend for the JobBoard application.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- Fetch all jobs
+- View job details
+- Filter jobs by type
+- Loading spinner
+- Error handling
+- Skill badges
+- React Router navigation
+- Axios service architecture
 
-## React Compiler
+---
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+# Tech Stack
 
-## Expanding the ESLint configuration
+- React
+- React Router DOM
+- Axios
+- Vite
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+---
+
+# Folder Structure
+
+frontend/
+│
+├── src/
+│   ├── components/
+│   ├── pages/
+│   ├── services/
+│   ├── App.jsx
+│   ├── main.jsx
+│   └── index.css
+│
+├── package.json
+└── vite.config.js
+
+---
+
+# Installation
+
+## Clone Repository
+
+git clone <repository_url>
+
+---
+
+## Install Packages
+
+npm install
+
+---
+
+# Run Frontend
+
+npm run dev
+
+---
+
+# Frontend Runs On
+
+http://localhost:5173
+
+---
+
+# API Pattern Used
+
+useState
+(data, loading, error)
+
++
+
+useEffect
+(fetch on mount)
+
++
+
+Axios Service File
+(all API calls live here)
+
+---
+
+# Requirements Completed
+
+- Fetch jobs using useEffect
+- Loading spinner
+- Error handling
+- .map() rendering
+- React Router
+- useParams
+- Filter buttons
+- Axios service file
+- Skill badges
+- Clean folder structure
+
+---
+
+# Pages
+
+| Route | Description |
+|---|---|
+| /jobs | Display all jobs |
+| /jobs/:id | Show single job details |
+
+---
+
+# Components
+
+| Component | Purpose |
+|---|---|
+| Navbar | Navigation |
+| JobCard | Job UI card |
+| Loader | Loading spinner |
+| ErrorMessage | Error UI |
+| SkillBadge | Skills pill |
+
+---
+
+# Services
+
+All axios API calls are inside:
+
+src/services/apiService.js
+
+---
+
+# Backend URL
+
+http://127.0.0.1:8000

@@ -1,38 +1,27 @@
 import { useEffect, useState } from "react"
-
 import Navbar from "../components/Navbar"
 import JobCard from "../components/JobCard"
 import Loader from "../components/Loader"
 import ErrorMessage from "../components/ErrorMessage"
-
-import {
-    getJobs,
-    getJobsByType,
-    getJobsByLocation
-} from "../services/apiService"
+import { getJobs, getJobsByType, getJobsByLocation } from "../services/apiService"
 
 function ListPage() {
 
     const [jobs, setJobs] = useState([])
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState("")
-
-    // Location & Type Filter states
     const [locations, setLocations] = useState([])
     const [selectedLocation, setSelectedLocation] = useState("")
     const [activeFilter, setActiveFilter] = useState("all")
 
     useEffect(() => {
-
         fetchJobs()
-
     }, [])
 
-    // FETCH ALL JOBS
+    // Get all jobs
     const fetchJobs = async () => {
 
         try {
-
             setLoading(true)
             setActiveFilter("all")
             setSelectedLocation("")
@@ -40,7 +29,6 @@ function ListPage() {
             const response = await getJobs()
             setJobs(response.data)
 
-            // Dynamically collect unique locations from all loaded jobs
             const uniqueLocations = Array.from(
                 new Set(response.data.map(j => j.location).filter(Boolean))
             )
@@ -56,29 +44,23 @@ function ListPage() {
         }
     }
 
-    // FILTER BY TYPE
+    // Filter by type
     const filterJobs = async (type) => {
-
         try {
-
             setLoading(true)
             setActiveFilter(type)
-            setSelectedLocation("") // Reset location selector on type filter click
+            setSelectedLocation("")
 
             const response = await getJobsByType(type)
             setJobs(response.data)
-
         } catch (err) {
-
             setError("Failed to filter jobs")
-
         } finally {
-
             setLoading(false)
         }
     }
 
-    // FILTER BY LOCATION
+    // Filter by location
     const handleLocationChange = async (e) => {
         const location = e.target.value
         setSelectedLocation(location)
@@ -90,11 +72,10 @@ function ListPage() {
 
         try {
             setLoading(true)
-            setActiveFilter("") // Reset active type filter badge on location select
+            setActiveFilter("")
 
             const response = await getJobsByLocation(location)
             setJobs(response.data)
-
         } catch (err) {
             setError("Failed to filter jobs by location")
         } finally {
@@ -102,9 +83,13 @@ function ListPage() {
         }
     }
 
-    if (loading) return <Loader />
+    if (loading) {
+        return <Loader />
+    }
 
-    if (error) return <ErrorMessage message={error} />
+    if (error) {
+        return <ErrorMessage message={error} />
+    }
 
     return (
 
@@ -112,12 +97,10 @@ function ListPage() {
 
             <Navbar />
 
-            {/* Premium Filter Toolbar */}
             <div className="filter-buttons" style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", padding: "30px 40px 10px", gap: "20px" }}>
 
-                {/* Job Type Selector buttons */}
                 <div style={{ display: "flex", gap: "10px" }}>
-                    <button 
+                    <button
                         onClick={fetchJobs}
                         className={activeFilter === "all" ? "active" : ""}
                     >
@@ -137,13 +120,12 @@ function ListPage() {
                     </button>
                 </div>
 
-                {/* Dynamic Location Dropdown */}
                 <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
                     <span style={{ fontSize: "14px", fontWeight: "600", color: "var(--text-secondary)" }}>
                         Location:
                     </span>
-                    <select 
-                        value={selectedLocation} 
+                    <select
+                        value={selectedLocation}
                         onChange={handleLocationChange}
                         className="location-select"
                         style={{
